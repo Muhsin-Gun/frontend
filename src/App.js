@@ -1,28 +1,24 @@
-// src/App.js
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Dashboard from "./components/Dashboard";
+import { AuthProvider } from "./components/Auth";
+import ForgotPassword from "./components/forgotPassword";
 import Login from "./components/Login";
-import Register from "./components/Register";
-import GetStudents from "./components/GetStudents";
-import UpdateStudent from "./components/UpdateStudent";
-import AddStudent from "./components/AddStudent";
-import DeleteStudent from "./components/DeleteStudent"; // You’ll create this
+import Dashboard from "./components/Dashboard";
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/getstudents" element={<GetStudents />} />
-        <Route path="/addstudent" element={<AddStudent />} />
-        <Route path="/UpdateStudent/:student_id" element={<UpdateStudent />} />
-        <Route path="/deletestudent" element={<DeleteStudent />} />
-      </Routes>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/" element={<Login />} />
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 }
 
 export default App;
+

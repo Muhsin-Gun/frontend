@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom"; 
 import {
   Container,
   TextField,
@@ -13,7 +14,6 @@ import axios from "axios";
 
 const Register = () => {
   const [formData, setFormData] = useState({
-    username: "",
     email: "",
     password: "",
   });
@@ -31,8 +31,9 @@ const Register = () => {
     try {
       await axios.post("http://localhost:4000/api/register", formData);
       setSuccessMessage("Registration successful!");
-      setFormData({ username: "", email: "", password: "" });
+      setFormData({ email: "", password: "" });
     } catch (err) {
+      console.error(err);
       setErrorMessage(
         err.response?.data?.error?.message || "Registration failed."
       );
@@ -53,15 +54,6 @@ const Register = () => {
         {errorMessage && <Alert severity="error">{errorMessage}</Alert>}
 
         <Box component="form" onSubmit={handleSubmit} sx={{ mt: 2 }}>
-          <TextField
-            label="Username"
-            name="username"
-            value={formData.username}
-            onChange={handleChange}
-            fullWidth
-            required
-            sx={{ mb: 2 }}
-          />
           <TextField
             label="Email"
             name="email"
@@ -98,6 +90,14 @@ const Register = () => {
           >
             Register
           </Button>
+          <Box textAlign="center" mt={3}>
+       <Typography variant="body1">
+         Already a user?{" "}
+        <Link to="/login" style={{ color: "peru", fontWeight: "bold", textDecoration: "none" }}>
+      Login
+      </Link>
+   </Typography>
+</Box>
         </Box>
       </Paper>
     </Container>
